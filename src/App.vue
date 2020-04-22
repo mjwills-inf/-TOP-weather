@@ -34,18 +34,24 @@ export default {
     }
   }, 
   methods: {
-    async callApi(payload) {
-      try {
-        this.searchTerm = payload.search
-        this.unit = payload.unit
-        const response = await fetch(this.targetUrl)
-        const data = await response.json()
-        this.weatherData = data;
-        console.log(this.weatherData)
-      } catch (error) {
-        console.log(error)
+    callApi(payload) {
+
+      this.searchTerm = payload.search
+      this.unit = payload.unit
+      
+      fetch(this.targetUrl)
+        .then(fetchResponse => fetchResponse.json())
+        .then(jsonResponse => this.buildWeatherData(jsonResponse))
+        .catch(anyReject => {
+          console.log("inside of catch")
+          console.log(anyReject)
+        });     
+    },
+    buildWeatherData(apiData) {
+        console.log("buildWD called")
+        console.log(apiData)
+
         // YARRRRRR
-      }
     }
   }
 }
