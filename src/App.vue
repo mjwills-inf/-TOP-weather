@@ -1,22 +1,19 @@
 <template>
   <div id="app">
-    <LocationInput v-on:new-call="callApi" />
-    <Graphic />
-    <Output />
+    <LocationInput v-on:new-call="callApi" />    
+    <Output v-bind:weatherData="weatherData" />
   </div>
 </template>
 
 <script>
 import LocationInput from './components/LocationInput';
-import Graphic from './components/Graphic';
 import Output from './components/Output';
 
 
 export default {
   name: 'App',
   components: {
-    LocationInput,
-    Graphic,
+    LocationInput,    
     Output
   },
   data() {
@@ -48,8 +45,10 @@ export default {
         });     
     },
     buildWeatherData(apiData) {
-        console.log("buildWD called")
-        console.log(apiData)
+      if (apiData.cod == 200) {
+        this.weatherData = { ...apiData }
+        console.log(this.weatherData)
+      }
 
         // YARRRRRR
     }
