@@ -1,20 +1,23 @@
 <template>
   <div id="app">
     <LocationInput v-on:new-call="callApi" />    
-    <Output v-bind:weatherData="weatherData" />
+    <Output v-if="apiCode200" v-bind:weatherData="weatherData" v-bind:unit="unit" />
+    <OutputError v-if="showError" v-bind:code="errorCode" />
   </div>
 </template>
 
 <script>
 import LocationInput from './components/LocationInput';
 import Output from './components/Output';
+import OutputError from './components/OutputError'
 
 
 export default {
   name: 'App',
   components: {
     LocationInput,    
-    Output
+    Output,
+    OutputError
   },
   data() {
     return {      
@@ -22,7 +25,10 @@ export default {
       searchTerm: "",
       unit: "",
       openWeatherKey: "&appid=dcd2e6326d2fb8503d3cfb017aef3301",
-      weatherData: {}
+      weatherData: {},
+      apiCode200: false,
+      showError: false,
+      errorCode: 0
     }
   },
   computed: {
@@ -39,18 +45,29 @@ export default {
       fetch(this.targetUrl)
         .then(fetchResponse => fetchResponse.json())
         .then(jsonResponse => this.buildWeatherData(jsonResponse))
-        .catch(anyReject => {
-          console.log("inside of catch")
-          console.log(anyReject)
+        .catch(anyReject => {          
+          this.handleError(0, anyReject)
         });     
     },
     buildWeatherData(apiData) {
       if (apiData.cod == 200) {
         this.weatherData = { ...apiData }
-        console.log(this.weatherData)
+        this.apiCode200 = true
+        this.showError = false        
       }
-
-        // YARRRRRR
+      else {
+        this.apiCode200 = false
+        this.handleError(apiData.cod, 0)
+      }
+    },
+    handleError(errorCode, catchError) {      
+      this.showError = true
+      this.apiCode200 = false
+      if (catchError instanceof TypeError) {
+        this.errorCode = 0
+      } else {
+        this.errorCode = errorCode
+      }
     }
   }
 }

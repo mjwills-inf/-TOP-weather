@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <div class="banner">
-      <div class="filler"></div>
-      <div class="filler"></div>
+     <img src="http://openweathermap.org/img/wn/09n.png" alt="">
+      <img src="http://openweathermap.org/img/wn/04n.png" alt="">
       <img src="../assets/img/logo.png" class="vue-logo" alt="vue-logo" width="40px" />
-      <div class="filler"></div>
-      <div class="filler"></div>
+       <img src="http://openweathermap.org/img/wn/02n.png" alt="">
+      
+      <img src="http://openweathermap.org/img/wn/11n.png" alt="">
     </div>
     
     <div class="entry">      
@@ -77,19 +78,13 @@ export default {
   margin: 15px;
 }
 
-.filler {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  border: 1px solid gray;
-  margin: 2px;
-}
+
 
 .vue-logo {
   display: inline-block;
   height: 40px;
   width: 40px;
-  border: 1px solid gray;
+  
   margin: 2px;
 }
 
