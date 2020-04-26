@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {      
-      openWeatherUrl: "http://api.openweathermap.org/data/2.5/weather?q=",
+      openWeatherUrl: "https://api.openweathermap.org/data/2.5/weather?q=",
       searchTerm: "",
       unit: "",
       openWeatherKey: "&appid=dcd2e6326d2fb8503d3cfb017aef3301",
